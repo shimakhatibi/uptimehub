@@ -1,0 +1,12 @@
+services:
+  uptimehub-api:
+    build: ./backend
+    container_name: uptimehub-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - uptimehub-data:/data
+
+volumes:
+  uptimehub-data:
+    external: true

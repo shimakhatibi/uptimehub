@@ -4,7 +4,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-DATABASE = "uptimehub.db"
+DATABASE = "/data/uptimehub.db"
 
 
 def get_db_connection():
