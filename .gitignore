@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 uptimehub.db
 .env
+backend/uptimehub-backup.db
