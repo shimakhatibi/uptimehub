@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,5 +31,15 @@ jobs:
       - name: Run tests
         run: pytest backend/test_app.py
 
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Docker image
-        run: docker build -t uptimehub-api ./backend
+        run: docker build -t ghcr.io/shimakhatibi/uptimehub:latest ./backend
+
+      - name: Push Docker image
+        run: docker push ghcr.io/shimakhatibi/uptimehub:latest
