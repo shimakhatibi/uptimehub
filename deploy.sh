@@ -10,9 +10,20 @@ docker compose pull
 echo "Starting updated container..."
 docker compose up -d
 
-echo "Checking service..."
-sleep 5
+echo "Waiting for container to become healthy..."
 
-curl -f http://127.0.0.1:5000/health
+for i in {1..12}; do
+    STATUS=$(docker compose ps --format '{{.Health}}')
 
-echo "Deployment successful."
+    if [ "$STATUS" = "healthy" ]; then
+        echo "Container is healthy."
+        echo "Deployment successful."
+        exit 0
+    fi
+
+    echo "Health status: $STATUS"
+    sleep 5
+done
+
+echo "Deployment failed: container did not become healthy."
+exit 1
