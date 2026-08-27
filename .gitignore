@@ -4,3 +4,4 @@ __pycache__/
 uptimehub.db
 .env
 backend/uptimehub-backup.db
+deploy.log
